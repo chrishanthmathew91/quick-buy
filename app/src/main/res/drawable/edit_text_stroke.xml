@@ -3,7 +3,7 @@
     <corners
         android:radius="25dp"></corners>
     <stroke
-        android:width="8dp"
+        android:width="3dp"
         android:color="@color/editText">
     </stroke>
 </shape>
