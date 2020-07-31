@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">quickBuyApp</string>
+    <string name="mobile">Mobile</string>
+    <string name="signup">Signup</string>
+    <string name="mobile1">mobile</string>
+    <string name="password">password</string>
+    <string name="signup_with_us">Signup with us</string>
+    <string name="full_name">Full Name</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="email1">email</string>
+    <string name="password1">Password</string>
 </resources>

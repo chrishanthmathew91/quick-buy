@@ -1,9 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpPage">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textViewSignupMessage"
+        android:layout_width="278dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/signup_with_us"
+        android:textColor="@color/blackColor"
+        android:textSize="36sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/textViewSignupFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSignupMessage"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/full_name"
+        android:textColor="@color/editText"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTextPersonNameSignup"
+        android:layout_width="300dp"
+        android:layout_height="53dp"
+        android:layout_below="@id/textViewSignupFullName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_stroke"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:textColorHint="#595555" />
+
+    <TextView
+        android:id="@+id/textViewEmailSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPersonNameSignup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/email"
+        android:textColor="@color/editText"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTextEmailAddressSignup"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_below="@id/textViewEmailSignup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_stroke"
+        android:ems="10"
+        android:hint="@string/email1"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="15dp"
+        android:textColorHint="#534E4E" />
+
+    <TextView
+        android:id="@+id/textViewPasswordSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextEmailAddressSignup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/password1"
+        android:textColor="@color/editText"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTextPasswordSignup"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_below="@id/textViewPasswordSignup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_stroke"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:textColorHint="#595454" />
+
+    <TextView
+        android:id="@+id/textViewMobileSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPasswordSignup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/mobile"
+        android:textColor="@color/editText"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTextPhoneSignup"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_below="@id/textViewMobileSignup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_stroke"
+        android:ems="10"
+        android:hint="@string/mobile1"
+        android:inputType="phone"
+        android:paddingLeft="15dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#514F4F" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_below="@id/editTextPhoneSignup"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="114dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:text="@string/signup"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
