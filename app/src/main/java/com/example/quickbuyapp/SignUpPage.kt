@@ -62,7 +62,7 @@ class SignUpPage : AppCompatActivity() {
                     mProgressBar.visibility=View.INVISIBLE
                 }
                 else{
-                    Toast.makeText(this@SignUpPage,"Sign up unsuccessful",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SignUpPage,"User already exist!",Toast.LENGTH_SHORT).show()
                     mProgressBar.visibility=View.INVISIBLE
                 }
             }

@@ -32,7 +32,7 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/editTextEmailAddressLogin"
         android:layout_width="309dp"
         android:layout_height="60dp"
         android:layout_below="@id/textViewEmailLogin"
@@ -51,7 +51,7 @@
         android:id="@+id/textViewPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTextEmailAddress"
+        android:layout_below="@id/editTextEmailAddressLogin"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="27dp"
@@ -101,4 +101,12 @@
         android:text="Forget Password"
         android:textColor="@color/buttonColor"
         android:textSize="22sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 </RelativeLayout>
