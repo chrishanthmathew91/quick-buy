@@ -43,7 +43,9 @@ class LoginPage : AppCompatActivity() {
             }
         }
         mForgetPassword.setOnClickListener {
-            var intent:Intent= Intent(this@LoginPage,ForgetPasswordActivity::class.java)
+            var intent:Intent= Intent(this@LoginPage,ForgetPassfun isValidEmail(target: CharSequence?): Boolean {
+            return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        }wordActivity::class.java)
             startActivity(intent)
         }
 
@@ -63,7 +65,5 @@ class LoginPage : AppCompatActivity() {
                 }
             }
     }
-    fun isValidEmail(target: CharSequence?): Boolean {
-        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
-    }
+
 }
