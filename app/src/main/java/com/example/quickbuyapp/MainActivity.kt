@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
             var destinationActivity=WelcomePage::class.java
             var intent: Intent =Intent(context,destinationActivity)
             startActivity(intent)
-        },3000)
+        },2500)
     }
 }
