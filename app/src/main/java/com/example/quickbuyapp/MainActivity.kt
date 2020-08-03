@@ -17,12 +17,11 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow()
         }*/
-
         Handler().postDelayed({
             var context: Context =this@MainActivity
             var destinationActivity=WelcomePage::class.java
             var intent: Intent =Intent(context,destinationActivity)
             startActivity(intent)
-        },2500)
+        },2000)
     }
 }
