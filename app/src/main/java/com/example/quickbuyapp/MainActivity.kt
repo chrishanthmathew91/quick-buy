@@ -12,16 +12,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        /*if (savedInstanceState == null) {
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow()
-        }*/
-        Handler().postDelayed({
-            var context: Context =this@MainActivity
-            var destinationActivity=WelcomePage::class.java
-            var intent: Intent =Intent(context,destinationActivity)
-            startActivity(intent)
-        },2000)
+            Handler().postDelayed({
+                var context: Context =this@MainActivity
+                var destinationActivity=WelcomePage::class.java
+                var intent: Intent =Intent(context,destinationActivity)
+                startActivity(intent)
+            },2000)
+        }
     }
 }
