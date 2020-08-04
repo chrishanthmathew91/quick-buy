@@ -22,6 +22,6 @@ class MainActivity : AppCompatActivity() {
                 var intent: Intent =Intent(context,destinationActivity)
                 startActivity(intent)
             },2000)
-        }
+       }
     }
 }
