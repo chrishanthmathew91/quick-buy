@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quickbuyapp.Model.Users
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
@@ -23,6 +24,7 @@ class SignUpPage : AppCompatActivity() {
     private lateinit var rootRef:DatabaseReference
     private lateinit var mSignUpButton: Button
     lateinit var mProgressBar: ProgressBar
+    lateinit var uid:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_page)
@@ -63,6 +65,20 @@ class SignUpPage : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(mEmail,mPassword)
             .addOnCompleteListener(this){ task ->
                 if(task.isSuccessful){
+                    val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                    if (user != null) {
+                        uid=user.uid
+                    }
+                    rootRef=FirebaseDatabase.getInstance().getReference()
+                    val userDetails= Users(mName,mEmail,mPassword,mMobile)
+                    rootRef.addValueEventListener(object:ValueEventListener{
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            rootRef.child("users").child(uid).setValue(userDetails)
+                        }
+
+                    })
                     Toast.makeText(this@SignUpPage,"Sign up successful",Toast.LENGTH_SHORT).show()
                     mProgressBar.visibility=View.INVISIBLE
                 }
@@ -71,16 +87,6 @@ class SignUpPage : AppCompatActivity() {
                     mProgressBar.visibility=View.INVISIBLE
                 }
             }
-        rootRef=FirebaseDatabase.getInstance().getReference()
-        val user= Users(mName,mEmail,mPassword,mMobile)
-        rootRef.addValueEventListener(object:ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-            }
-            override fun onDataChange(snapshot: DataSnapshot) {
-                rootRef.child("users").child(mMobile).setValue(user)
-            }
-
-        })
     }
     fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()

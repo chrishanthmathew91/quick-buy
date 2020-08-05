@@ -55,6 +55,8 @@ class LoginPage : AppCompatActivity() {
             .addOnCompleteListener (this){task ->
                 if(task.isSuccessful){
                     Toast.makeText(this@LoginPage,"Login in successful",Toast.LENGTH_SHORT).show()
+                    val intent:Intent= Intent(this@LoginPage,UserDashboard::class.java)
+                    startActivity(intent)
                     mProgressBar.visibility=View.INVISIBLE
                 }
                 else{
