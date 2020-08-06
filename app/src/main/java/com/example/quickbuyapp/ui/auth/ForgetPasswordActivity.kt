@@ -1,4 +1,4 @@
-package com.example.quickbuyapp
+package com.example.quickbuyapp.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,8 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.quickbuyapp.R
+import com.example.quickbuyapp.WelcomePage
 import com.google.firebase.auth.FirebaseAuth
 
 class ForgetPasswordActivity : AppCompatActivity() {
@@ -32,7 +34,8 @@ class ForgetPasswordActivity : AppCompatActivity() {
                                     "Email Sent",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                var intent:Intent= Intent(this@ForgetPasswordActivity,WelcomePage::class.java)
+                                var intent:Intent= Intent(this@ForgetPasswordActivity,
+                                    WelcomePage::class.java)
                                 startActivity(intent)
                             } else {
                                 Toast.makeText(

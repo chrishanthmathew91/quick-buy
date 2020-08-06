@@ -1,4 +1,4 @@
-package com.example.quickbuyapp
+package com.example.quickbuyapp.ui.auth
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,11 +10,10 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quickbuyapp.Model.Users
+import com.example.quickbuyapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-
-
 class SignUpPage : AppCompatActivity() {
     lateinit var mFullNameUser:EditText
     lateinit var mEmailUser:EditText
@@ -59,7 +58,6 @@ class SignUpPage : AppCompatActivity() {
             }
         }
     }
-
     private fun signUpusers(mName: String, mEmail: String, mPassword: String, mMobile: String) {
         auth=FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(mEmail,mPassword)
@@ -80,11 +78,11 @@ class SignUpPage : AppCompatActivity() {
 
                     })
                     Toast.makeText(this@SignUpPage,"Sign up successful",Toast.LENGTH_SHORT).show()
-                    mProgressBar.visibility=View.INVISIBLE
+                    mProgressBar.visibility=View.GONE
                 }
                 else{
                     Toast.makeText(this@SignUpPage,"User already exist!",Toast.LENGTH_SHORT).show()
-                    mProgressBar.visibility=View.INVISIBLE
+                    mProgressBar.visibility=View.GONE
                 }
             }
     }
