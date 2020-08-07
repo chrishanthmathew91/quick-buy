@@ -1,4 +1,4 @@
-package com.example.quickbuyapp.Model
+package com.example.quickbuyapp.model
 
 import com.google.firebase.database.IgnoreExtraProperties
 

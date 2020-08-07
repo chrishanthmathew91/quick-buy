@@ -1,11 +1,11 @@
-package com.example.quickbuyapp
+package com.example.quickbuyapp.ui.welcome
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
+import com.example.quickbuyapp.R
 import com.example.quickbuyapp.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
             Handler().postDelayed({
                 var context: Context =this@MainActivity
-                var destinationActivity=WelcomePage::class.java
+                var destinationActivity= WelcomePage::class.java
                 var intent: Intent =Intent(context,destinationActivity)
                 startActivity(intent)
                 finish()

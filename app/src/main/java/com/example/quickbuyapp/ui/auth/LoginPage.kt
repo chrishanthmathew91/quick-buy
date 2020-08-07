@@ -8,7 +8,7 @@ import android.util.Patterns
 import android.view.View
 import android.widget.*
 import com.example.quickbuyapp.R
-import com.example.quickbuyapp.UserDashboard
+import com.example.quickbuyapp.ui.dashboard.UserDashboard
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginPage : AppCompatActivity() {

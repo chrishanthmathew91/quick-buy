@@ -9,35 +9,25 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.quickbuyapp.Model.Users
+import com.example.quickbuyapp.model.Users
 import com.example.quickbuyapp.R
+import com.example.quickbuyapp.databinding.ActivitySignUpPageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 class SignUpPage : AppCompatActivity() {
-    lateinit var mFullNameUser:EditText
-    lateinit var mEmailUser:EditText
-    lateinit var mPasswordUser:EditText
-    lateinit var mMobileuser:EditText
     private lateinit var auth:FirebaseAuth
     private lateinit var rootRef:DatabaseReference
-    private lateinit var mSignUpButton: Button
-    lateinit var mProgressBar: ProgressBar
     lateinit var uid:String
+    private lateinit var binding:ActivitySignUpPageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_page)
-        mFullNameUser=findViewById(R.id.editTextPersonNameSignup)
-        mEmailUser=findViewById(R.id.editTextEmailAddressSignup)
-        mPasswordUser=findViewById(R.id.editTextPasswordSignup)
-        mMobileuser=findViewById(R.id.editTextPhoneSignup)
-        mSignUpButton=findViewById(R.id.buttonSignup)
-        mProgressBar=findViewById(R.id.progressBar)
-        mSignUpButton.setOnClickListener{
-            var mName:String=mFullNameUser.text.toString().trim()
-            var mEmail=mEmailUser.text.toString().trim()
-            var mPassword = mPasswordUser.text.toString().trim()
-            var mMobile = mMobileuser.text.toString().trim()
+        binding.buttonSignup.setOnClickListener{
+            var mName:String=binding.editTextPersonNameSignup.text.toString().trim()
+            var mEmail=binding.editTextEmailAddressSignup.text.toString().trim()
+            var mPassword =binding.editTextPasswordSignup.text.toString().trim()
+            var mMobile =binding.editTextPhoneSignup.text.toString().trim()
             if(isValidEmail(mEmail)) {
                 if (TextUtils.isEmpty(mName)) {
                     Toast.makeText(this@SignUpPage, "Enter Name", Toast.LENGTH_SHORT).show()
@@ -50,7 +40,7 @@ class SignUpPage : AppCompatActivity() {
                     Toast.makeText(this@SignUpPage, "Enter Mobile", Toast.LENGTH_SHORT).show()
                 } else {
                     signUpusers(mName, mEmail, mPassword, mMobile)
-                    mProgressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
             else{
@@ -75,14 +65,13 @@ class SignUpPage : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             rootRef.child("users").child(uid).setValue(userDetails)
                         }
-
                     })
                     Toast.makeText(this@SignUpPage,"Sign up successful",Toast.LENGTH_SHORT).show()
-                    mProgressBar.visibility=View.GONE
+                    binding.progressBar.visibility=View.GONE
                 }
                 else{
                     Toast.makeText(this@SignUpPage,"User already exist!",Toast.LENGTH_SHORT).show()
-                    mProgressBar.visibility=View.GONE
+                    binding.progressBar.visibility=View.GONE
                 }
             }
     }

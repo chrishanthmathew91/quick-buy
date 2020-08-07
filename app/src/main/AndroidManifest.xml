@@ -10,14 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UserDashboard"
+            android:name=".ui.dashboard.UserDashboard"
             android:label="@string/title_activity_user_dashboard"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.auth.ForgetPasswordActivity" />
         <activity android:name=".ui.auth.SignUpPage" />
         <activity android:name=".ui.auth.LoginPage" />
-        <activity android:name=".WelcomePage" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.welcome.WelcomePage" />
+        <activity android:name=".ui.welcome.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

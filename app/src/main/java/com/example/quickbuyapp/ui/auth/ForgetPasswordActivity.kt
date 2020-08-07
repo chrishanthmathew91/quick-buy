@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.quickbuyapp.R
-import com.example.quickbuyapp.WelcomePage
+import com.example.quickbuyapp.ui.welcome.WelcomePage
 import com.google.firebase.auth.FirebaseAuth
 
 class ForgetPasswordActivity : AppCompatActivity() {
