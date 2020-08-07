@@ -7,28 +7,22 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.widget.*
+import androidx.databinding.DataBindingUtil
 import com.example.quickbuyapp.R
+import com.example.quickbuyapp.databinding.ActivityLoginPageBinding
 import com.example.quickbuyapp.ui.dashboard.UserDashboard
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginPage : AppCompatActivity() {
-    lateinit var mEmailAddressLoginPage:EditText
-    lateinit var mPasswordlogin:EditText
-    lateinit var mForgetPassword:TextView
-    lateinit var mButton: Button
-    lateinit var mProgressBar: ProgressBar
+    private lateinit var binding:ActivityLoginPageBinding
     lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
-        mEmailAddressLoginPage=findViewById(R.id.editTextEmailAddressLogin)
-        mPasswordlogin=findViewById(R.id.editTextPasswordLogin)
-        mButton=findViewById(R.id.buttonLogin)
-        mProgressBar=findViewById(R.id.progressBarLogin)
-        mForgetPassword=findViewById(R.id.textViewForgetPassword)
-        mButton.setOnClickListener {
-            var mEmail = mEmailAddressLoginPage.text.toString().trim()
-            var mPassword = mPasswordlogin.text.toString().trim()
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_login_page)
+        binding.buttonLogin.setOnClickListener {
+            var mEmail =binding.editTextEmailAddressLogin.text.toString().trim()
+            var mPassword =binding.editTextPasswordLogin.text.toString().trim()
             if (isValidEmail(mEmail)) {
                 if (TextUtils.isEmpty(mEmail)) {
                     Toast.makeText(this@LoginPage, "Enter Email", Toast.LENGTH_SHORT).show()
@@ -36,14 +30,14 @@ class LoginPage : AppCompatActivity() {
                     Toast.makeText(this@LoginPage, "Enter Password", Toast.LENGTH_SHORT).show()
                 } else {
                     validateLogin(mEmail, mPassword)
-                    mProgressBar.visibility = View.VISIBLE
+                    binding.progressBarLogin.visibility = View.VISIBLE
                 }
             }
             else{
                 Toast.makeText(this@LoginPage, "Email Invalid", Toast.LENGTH_SHORT).show()
             }
         }
-        mForgetPassword.setOnClickListener {
+        binding.textViewForgetPassword.setOnClickListener {
             var intent:Intent= Intent(this@LoginPage,
                 ForgetPasswordActivity::class.java)
             startActivity(intent)
@@ -58,15 +52,15 @@ class LoginPage : AppCompatActivity() {
                     val intent:Intent= Intent(this@LoginPage,
                         UserDashboard::class.java)
                     startActivity(intent)
-                    mProgressBar.visibility=View.INVISIBLE
+                    binding.progressBarLogin.visibility=View.GONE
                 }
                 else{
                     Toast.makeText(this@LoginPage,"Login in unsuccesful",Toast.LENGTH_SHORT).show()
-                    mProgressBar.visibility=View.INVISIBLE
+                    binding.progressBarLogin.visibility=View.GONE
                 }
             }
     }
-    fun isValidEmail(target: CharSequence?): Boolean {
+    private fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 }

@@ -8,6 +8,7 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.databinding.ActivityForgetPasswordBinding
 import com.example.quickbuyapp.ui.welcome.WelcomePage
@@ -19,6 +20,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forget_password)
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_forget_password)
         auth=FirebaseAuth.getInstance()
         binding.buttonSentEmail.setOnClickListener {
             var emailAddress: String =binding.editTextEmailAddressForget.text.toString().trim()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quickbuyapp">
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,12 +12,18 @@
         <activity
             android:name=".ui.dashboard.UserDashboard"
             android:label="@string/title_activity_user_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ui.auth.ForgetPasswordActivity" />
-        <activity android:name=".ui.auth.SignUpPage" />
-        <activity android:name=".ui.auth.LoginPage" />
-        <activity android:name=".ui.welcome.WelcomePage" />
-        <activity android:name=".ui.welcome.MainActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.auth.ForgetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.auth.SignUpPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.auth.LoginPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.welcome.WelcomePage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.welcome.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

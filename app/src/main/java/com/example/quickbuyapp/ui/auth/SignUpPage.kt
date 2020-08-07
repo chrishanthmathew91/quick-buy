@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.quickbuyapp.model.Users
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.databinding.ActivitySignUpPageBinding
@@ -23,6 +24,7 @@ class SignUpPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_page)
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_sign_up_page)
         binding.buttonSignup.setOnClickListener{
             var mName:String=binding.editTextPersonNameSignup.text.toString().trim()
             var mEmail=binding.editTextEmailAddressSignup.text.toString().trim()
