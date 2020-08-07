@@ -40,13 +40,13 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:autoText="false"
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
             android:hint="@string/name"
-            android:inputType="textPersonName"
+            android:inputType="textFilter"
             android:paddingLeft="15dp"
-            android:textColorHint="#595555" />
+            android:textColorHint="#595555"
+            android:importantForAutofill="no"/>
 
         <TextView
             android:id="@+id/textViewEmailSignup"
@@ -58,7 +58,8 @@
             android:layout_marginTop="10dp"
             android:text="@string/email"
             android:textColor="@color/editText"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            />
 
         <EditText
             android:id="@+id/editTextEmailAddressSignup"
@@ -68,11 +69,9 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:autoText="false"
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
             android:hint="@string/email1"
-            android:inputType="textEmailAddress"
             android:paddingLeft="15dp"
             android:textColorHint="#534E4E" />
 
@@ -96,13 +95,13 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:autoText="false"
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPassword"
+            android:inputType="textFilter"
             android:paddingLeft="15dp"
-            android:textColorHint="#595454" />
+            android:textColorHint="#595454"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewMobileSignup"
@@ -124,14 +123,13 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:autoText="false"
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
             android:hint="@string/mobile1"
-            android:inputType="phone"
             android:paddingLeft="15dp"
             android:textColor="#4A4444"
-            android:textColorHint="#514F4F" />
+            android:textColorHint="#514F4F"
+            android:inputType="textFilter"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

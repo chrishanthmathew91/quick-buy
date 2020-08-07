@@ -39,13 +39,14 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="17dp"
-            android:autoText="false"
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
-            android:inputType="textEmailAddress"
+            android:hint="@string/email1"
+            android:inputType="textFilter"
             android:paddingLeft="15dp"
             android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#EFE8E8" />
+            android:textColorHint="@color/blackColor"
+            android:importantForAutofill="no"/>
 
         <TextView
             android:id="@+id/textViewPasswordLogin"
@@ -67,13 +68,13 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="14dp"
-            android:autoText="false"
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
-            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:inputType="textFilter"
             android:paddingLeft="15dp"
             android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            android:textColorHint="@color/blackColor" />
 
         <Button
             android:id="@+id/buttonLogin"

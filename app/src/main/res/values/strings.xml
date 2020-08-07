@@ -2,13 +2,13 @@
     <string name="app_name">quickBuyApp</string>
     <string name="mobile">Mobile</string>
     <string name="signUp">SignUp</string>
-    <string name="mobile1">mobile</string>
-    <string name="password">password</string>
+    <string name="mobile1">9000000001</string>
+    <string name="password">..........</string>
     <string name="signUp_with_us">SignUp With Us</string>
     <string name="full_name">Full Name</string>
-    <string name="name">Name</string>
+    <string name="name">Michael Scott</string>
     <string name="email">Email</string>
-    <string name="email1">email</string>
+    <string name="email1">email@xyz.com</string>
     <string name="password1">Password</string>
     <string name="title_activity_user_dashboard">UserDashboard</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
