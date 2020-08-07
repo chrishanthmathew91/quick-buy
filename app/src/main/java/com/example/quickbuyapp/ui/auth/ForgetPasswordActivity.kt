@@ -9,21 +9,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.quickbuyapp.R
+import com.example.quickbuyapp.databinding.ActivityForgetPasswordBinding
 import com.example.quickbuyapp.ui.welcome.WelcomePage
 import com.google.firebase.auth.FirebaseAuth
 
 class ForgetPasswordActivity : AppCompatActivity() {
     private lateinit var auth:FirebaseAuth
-    private lateinit var mEmailReset:EditText
-    private lateinit var mForgetButton:Button
+    private lateinit var binding: ActivityForgetPasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forget_password)
-        mEmailReset=findViewById(R.id.editTextEmailAddressForget)
-        mForgetButton=findViewById(R.id.buttonSentEmail)
         auth=FirebaseAuth.getInstance()
-        mForgetButton.setOnClickListener {
-            var emailAddress: String = mEmailReset.text.toString().trim()
+        binding.buttonSentEmail.setOnClickListener {
+            var emailAddress: String =binding.editTextEmailAddressForget.text.toString().trim()
             if (isValidEmail(emailAddress)) {
                 if (emailAddress != null) {
                     auth.sendPasswordResetEmail(emailAddress)
@@ -49,7 +47,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
             }
         }
     }
-    fun isValidEmail(target: CharSequence?): Boolean {
+    private fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 }
