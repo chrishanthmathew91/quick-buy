@@ -1,5 +1,6 @@
 package com.example.quickbuyapp.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -10,14 +11,23 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.example.quickbuyapp.model.Users
 import com.example.quickbuyapp.R
+import com.example.quickbuyapp.databinding.ActivityLoginPageBinding
 import com.example.quickbuyapp.databinding.ActivitySignUpPageBinding
+import com.example.quickbuyapp.ui.dashboard.UserDashboard
+import com.example.quickbuyapp.utils.startHomeActivity
+import com.example.quickbuyapp.utils.startLoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-class SignUpPage : AppCompatActivity() {
-    private lateinit var auth:FirebaseAuth
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
+
+class SignUpPage : AppCompatActivity(), AuthListener, KodeinAware {
+    /*private lateinit var auth:FirebaseAuth
     private lateinit var rootRef:DatabaseReference
     lateinit var uid:String
     private lateinit var binding:ActivitySignUpPageBinding
@@ -79,5 +89,39 @@ class SignUpPage : AppCompatActivity() {
     }
     fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }*/
+
+    override val kodein by kodein()
+    private val factory : AuthViewModelFactory by instance()
+    private  lateinit var binding: ActivitySignUpPageBinding
+
+    private lateinit var viewModel: AuthViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sign_up_page)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up_page)
+        viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
+        binding.viewmodel = viewModel
+
+        viewModel.authListener = this
+    }
+    override fun onStarted() {
+        binding.progressBar.visibility = View.VISIBLE
+        /*Intent(this, UserDashboard::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(it)
+        }*/
+    }
+
+    override fun onSuccess(message: String) {
+        binding.progressBar.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        startLoginActivity()
+    }
+
+    override fun onFailure(message: String) {
+        binding.progressBar.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
