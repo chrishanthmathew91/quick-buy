@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.quickbuyapp.ui.auth.AuthViewModel" />
+            type="com.example.quickbuyapp.ui.dashboard.DashboardViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

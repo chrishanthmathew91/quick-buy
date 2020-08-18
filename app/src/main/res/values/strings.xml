@@ -23,4 +23,5 @@
     <string name="menu_slideshow">Logout</string>
     <string name="product_search">Product Search</string>
     <string name="cart">Cart</string>
+    <string name="logout">Logout</string>
 </resources>

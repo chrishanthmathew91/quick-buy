@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.quickbuyapp.model.firebasesource.FirebaseSource
 import com.example.quickbuyapp.model.repositories.UserRepository
 import com.example.quickbuyapp.ui.auth.AuthViewModelFactory
-import com.example.quickbuyapp.ui.dashboard.UserDashboardViewModelFactory
+import com.example.quickbuyapp.ui.dashboard.DashboardViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -21,7 +21,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from singleton { FirebaseSource() }
         bind() from singleton { UserRepository(instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
-        //bind() from provider { UserDashboardViewModelFactory(instance()) }
+        bind() from provider { DashboardViewModelFactory(instance()) }
 
     }
 }
