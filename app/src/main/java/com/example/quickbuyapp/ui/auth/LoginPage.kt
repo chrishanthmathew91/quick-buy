@@ -1,19 +1,14 @@
 package com.example.quickbuyapp.ui.auth
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.databinding.ActivityLoginPageBinding
-import com.example.quickbuyapp.ui.dashboard.UserDashboard
 import com.example.quickbuyapp.utils.startHomeActivity
-import com.google.firebase.auth.FirebaseAuth
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance

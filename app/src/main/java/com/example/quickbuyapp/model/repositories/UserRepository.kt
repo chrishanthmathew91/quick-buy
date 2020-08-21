@@ -11,6 +11,8 @@ class UserRepository (
 
     fun forget(email: String)=firebase.forget(email)
 
+    fun change(password: String)=firebase.change(password)
+
     fun currentUser() = firebase.currentUser()
 
     fun logout() = firebase.logout()

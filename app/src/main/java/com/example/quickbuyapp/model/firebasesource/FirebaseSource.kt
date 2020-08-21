@@ -41,7 +41,17 @@ class FirebaseSource {
             }
         }
     }
-
+    fun change(password: String)= Completable.create { emitter ->
+        currentUser()!!.updatePassword(password)
+            .addOnCompleteListener {
+                if (!emitter.isDisposed) {
+                    if (it.isSuccessful)
+                        emitter.onComplete()
+                    else
+                        emitter.onError(it.exception!!)
+                }
+            }
+    }
     fun logout() = firebaseAuth.signOut()
 
     fun currentUser() = firebaseAuth.currentUser

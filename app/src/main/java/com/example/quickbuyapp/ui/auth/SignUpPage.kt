@@ -1,27 +1,14 @@
 package com.example.quickbuyapp.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.example.quickbuyapp.model.Users
 import com.example.quickbuyapp.R
-import com.example.quickbuyapp.databinding.ActivityLoginPageBinding
 import com.example.quickbuyapp.databinding.ActivitySignUpPageBinding
-import com.example.quickbuyapp.ui.dashboard.UserDashboard
-import com.example.quickbuyapp.utils.startHomeActivity
 import com.example.quickbuyapp.utils.startLoginActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -114,13 +101,13 @@ class SignUpPage : AppCompatActivity(), AuthListener, KodeinAware {
         }*/
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess( message: String) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         startLoginActivity()
     }
 
-    override fun onFailure(message: String) {
+    override fun onFailure( message: String) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
