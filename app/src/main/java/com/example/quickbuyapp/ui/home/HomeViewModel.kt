@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quickbuyapp.Callback.IBestDealLoadCallback
 import com.example.quickbuyapp.Callback.IPopularLoadCallback
-import com.example.quickbuyapp.Common
+import com.example.quickbuyapp.Common.Common
 import com.example.quickbuyapp.model.BestDealModel
 import com.example.quickbuyapp.model.PopularCategoryModel
 import com.google.firebase.database.DataSnapshot
