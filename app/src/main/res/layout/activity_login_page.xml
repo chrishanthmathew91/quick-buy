@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.quickbuyapp.ui.auth.AuthViewModel" />
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,6 +38,7 @@
 
         <EditText
             android:id="@+id/editTextEmailAddressLogin"
+            android:text="@={viewmodel.email}"
             android:layout_width="309dp"
             android:layout_height="60dp"
             android:layout_below="@id/textViewEmailLogin"
@@ -71,13 +77,16 @@
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textFilter"
+            android:inputType="textPassword"
             android:paddingLeft="15dp"
+            android:text="@={viewmodel.password}"
             android:textColorHighlight="#FFFFFF"
-            android:textColorHint="@color/blackColor" />
+            android:textColorHint="@color/blackColor"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/buttonLogin"
+            android:onClick="@{() -> viewmodel.login()}"
             android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTextPasswordLogin"
@@ -95,6 +104,7 @@
 
         <TextView
             android:id="@+id/textViewForgetPassword"
+            android:onClick="@{(v) -> viewmodel.goToForgetPassword(v)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTextPasswordLogin"

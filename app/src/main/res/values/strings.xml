@@ -3,7 +3,7 @@
     <string name="mobile">Mobile</string>
     <string name="signUp">SignUp</string>
     <string name="mobile1">9000000001</string>
-    <string name="password">..........</string>
+    <string name="password">.  .  .  .  .  .  .</string>
     <string name="signUp_with_us">SignUp With Us</string>
     <string name="full_name">Full Name</string>
     <string name="name">Michael Scott</string>
@@ -19,10 +19,14 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
     <string name="product_search">Product Search</string>
     <string name="cart">Cart</string>
+    <string name="logout">Logout</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="change">Change</string>
     <string name="popular_category">Popular Category</string>
     <string name="best_deal">Best Deals</string>
 </resources>

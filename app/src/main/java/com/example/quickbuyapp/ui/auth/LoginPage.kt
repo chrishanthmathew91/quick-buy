@@ -1,20 +1,21 @@
 package com.example.quickbuyapp.ui.auth
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.databinding.ActivityLoginPageBinding
-import com.example.quickbuyapp.ui.dashboard.UserDashboard
-import com.google.firebase.auth.FirebaseAuth
+import com.example.quickbuyapp.utils.startHomeActivity
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class LoginPage : AppCompatActivity() {
-    private lateinit var binding:ActivityLoginPageBinding
+class LoginPage : AppCompatActivity(), AuthListener, KodeinAware {
+
+    /*private lateinit var binding:ActivityLoginPageBinding
     lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,5 +63,45 @@ class LoginPage : AppCompatActivity() {
     }
     private fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }*/
+    override val kodein by kodein()
+    private val factory : AuthViewModelFactory by instance()
+    private lateinit var viewModel: AuthViewModel
+    private  lateinit var binding: ActivityLoginPageBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login_page)
+        binding=DataBindingUtil.setContentView(this, R.layout.activity_login_page)
+        viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
+        binding.viewmodel = viewModel
+
+        viewModel.authListener = this
     }
+
+    override fun onStarted() {
+        binding.progressBarLogin.visibility = View.VISIBLE
+    }
+
+    override fun onSuccess(message: String) {
+        binding.progressBarLogin.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        startHomeActivity()
+    }
+
+    override fun onFailure(message: String) {
+        binding.progressBarLogin.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.user?.let {
+            startHomeActivity()
+        }
+    }
+
+
+
+
+
 }

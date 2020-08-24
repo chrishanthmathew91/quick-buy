@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.quickbuyapp.ui.auth.AuthViewModel" />
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,42 +25,15 @@
             android:textSize="36sp"
             android:textStyle="bold|italic" />
 
-        <TextView
-            android:id="@+id/textViewSignupFullName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewSignupMessage"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/full_name"
-            android:textColor="@color/editText"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editTextPersonNameSignup"
-            android:layout_width="300dp"
-            android:layout_height="53dp"
-            android:layout_below="@id/textViewSignupFullName"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_text_stroke"
-            android:ems="10"
-            android:hint="@string/name"
-            android:inputType="textFilter"
-            android:paddingLeft="15dp"
-            android:textColorHint="#595555"
-            android:importantForAutofill="no"/>
 
         <TextView
             android:id="@+id/textViewEmailSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/editTextPersonNameSignup"
+            android:layout_below="@+id/textViewSignupMessage"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="80dp"
             android:text="@string/email"
             android:textColor="@color/editText"
             android:textSize="24sp"
@@ -63,6 +41,7 @@
 
         <EditText
             android:id="@+id/editTextEmailAddressSignup"
+            android:text="@={viewmodel.email}"
             android:layout_width="300dp"
             android:layout_height="52dp"
             android:layout_below="@id/textViewEmailSignup"
@@ -89,6 +68,7 @@
 
         <EditText
             android:id="@+id/editTextPasswordSignup"
+            android:text="@={viewmodel.password}"
             android:layout_width="300dp"
             android:layout_height="52dp"
             android:layout_below="@id/textViewPasswordSignup"
@@ -98,47 +78,20 @@
             android:background="@drawable/edit_text_stroke"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textFilter"
+            android:inputType="textPassword"
             android:paddingLeft="15dp"
             android:textColorHint="#595454"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textViewMobileSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/editTextPasswordSignup"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/mobile"
-            android:textColor="@color/editText"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editTextPhoneSignup"
-            android:layout_width="300dp"
-            android:layout_height="52dp"
-            android:layout_below="@id/textViewMobileSignup"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_text_stroke"
-            android:ems="10"
-            android:hint="@string/mobile1"
-            android:paddingLeft="15dp"
-            android:textColor="#4A4444"
-            android:textColorHint="#514F4F"
-            android:inputType="textFilter"/>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="78dp"
-            android:layout_below="@id/editTextPhoneSignup"
+            android:layout_below="@+id/editTextPasswordSignup"
             android:layout_marginTop="8dp">
 
             <Button
                 android:id="@+id/buttonSignup"
+                android:onClick="@{() -> viewmodel.signup()}"
                 android:layout_width="136dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
