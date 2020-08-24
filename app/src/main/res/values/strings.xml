@@ -23,4 +23,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="product_search">Product Search</string>
     <string name="cart">Cart</string>
+    <string name="popular_category">Popular Category</string>
+    <string name="best_deal">Best Deals</string>
 </resources>

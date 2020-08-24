@@ -13,6 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,16 +56,29 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+/*
     // Card View
     def cardview_version = "1.0.0"
     implementation "androidx.cardview:cardview:$cardview_version"
+*/
 
     // Recyclerview
     def recyclerview_version = "1.0.0"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
-    //glide :- using image becomes easy
-    def glide_version = "4.8.0"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    // Glide for image processing
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // to display rotating images
+    implementation 'com.asksira.android:loopingviewpager:1.1.4'
+
+    // to display image in circular form
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // add the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
 }

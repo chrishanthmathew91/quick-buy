@@ -6,4 +6,5 @@
     <color name="buttonColor">#0529F3</color>
     <color name="editText">#072BF4</color>
     <color name="blackColor">#FF0C0C0C</color>
+    <color name="overlay_color">#55333635</color>
 </resources>
