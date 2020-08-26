@@ -8,12 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.quickbuyapp.Callback.IRecyclerItemClickListener
-import com.example.quickbuyapp.Common.Common
-import com.example.quickbuyapp.EventBus.CategoryClick
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.model.ProductModel
-import org.greenrobot.eventbus.EventBus
 
 class MyProductListAdapter(internal var context: Context,
                            internal var productList: List<ProductModel>) :
@@ -37,8 +33,6 @@ class MyProductListAdapter(internal var context: Context,
         holder.text_item_name!!.setText(productList.get(position).name)
         holder.text_item_price!!.setText(productList.get(position).price)
     }
-
-
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
