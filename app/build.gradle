@@ -14,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -102,4 +103,11 @@ dependencies {
 
     // Eventbus : simplifies communication. To notify HomeActivity when user clicks category
     implementation 'org.greenrobot:eventbus:3.2.0'
+
+    //Room persistence
+    implementation 'androidx.room:room-rxjava2:2.2.0-rc01'
+    annotationProcessor 'androidx.room:room-compiler:2.2.0-rc01'
+
+    //Floating Button cart
+    implementation 'com.github.andremion:counterfab:1.2.2-alpha1'
 }
