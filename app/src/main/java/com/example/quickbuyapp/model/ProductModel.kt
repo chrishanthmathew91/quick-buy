@@ -6,5 +6,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class ProductModel(
     var name:String?=null,
     var item_id:String?=null,
-    var image:String?=null
+    var image:String?=null,
+    var price:String?=null
 )

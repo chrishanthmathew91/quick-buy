@@ -1,6 +1,9 @@
 package com.example.quickbuyapp.Common
 
+import com.example.quickbuyapp.model.CategoryModel
+
 object Common {
+    var categorySelected:CategoryModel ?= null
     val CATEGORY_REF: String="Category"
     val FULL_WIDTH_COLUMN: Int=1
     val BEST_DEAL_REF: String = "BestDeals"

@@ -53,7 +53,7 @@ class MenuViewModel : ViewModel(), ICategoryCallBackListener {
                 for(itemSnapShot in snapshot!!.children)
                 {
                     val model = itemSnapShot.getValue<CategoryModel>(CategoryModel::class.java)
-                    model!!.menu_id=itemSnapShot.key
+                    model!!.item_id=itemSnapShot.key
                     tempList.add(model!!)
                 }
                 categoryCallBackListener.onCategoryLoadSuccess(tempList)
