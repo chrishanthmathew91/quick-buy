@@ -3,6 +3,7 @@ package com.example.quickbuyapp.ui.dashboard
 import android.os.Bundle
 import android.view.Menu
 import android.widget.Toast
+import android.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -14,9 +15,20 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import com.example.quickbuyapp.Common.Common
 import com.example.quickbuyapp.EventBus.CategoryClick
+import com.example.quickbuyapp.EventBus.PopularProductClick
 import com.example.quickbuyapp.EventBus.ProductItemClick
 import com.example.quickbuyapp.R
+import com.example.quickbuyapp.model.CategoryModel
+import com.example.quickbuyapp.model.PopularCategoryModel
+import com.example.quickbuyapp.model.ProductModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import dmax.dialog.SpotsDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -24,10 +36,17 @@ import org.greenrobot.eventbus.ThreadMode
 class UserDashboard : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController : NavController
+    private lateinit var navView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
+    private var dialog:AlertDialog?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
+
+        dialog = SpotsDialog.Builder().setContext(this).setCancelable(false).build()
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -36,9 +55,10 @@ class UserDashboard : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -86,6 +106,64 @@ class UserDashboard : AppCompatActivity() {
     fun OnFoodSelected(event : ProductItemClick){
         if(event.isSuccess){
             findNavController(R.id.nav_host_fragment).navigate(R.id.nav_product_detail)
+        }
+    }
+
+    @Subscribe(sticky = true , threadMode = ThreadMode.MAIN)
+    fun OnPopularProductClick(event : PopularProductClick){
+        if(event.popularCategoryModel != null){
+            dialog!!.show()
+            FirebaseDatabase.getInstance()
+                .getReference("Category")
+                .child(event.popularCategoryModel!!.category_id!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener{
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if(snapshot.exists()){
+                            Common.categorySelected = snapshot.getValue(CategoryModel::class.java)
+                            FirebaseDatabase.getInstance()
+                            .getReference("Category")
+                            .child(event.popularCategoryModel!!.category_id!!)
+                            .child("product")
+                            .orderByChild("item_id")
+                            .equalTo(event.popularCategoryModel.item_id)
+                            .limitToLast(1)
+                            .addListenerForSingleValueEvent(object : ValueEventListener{
+
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    if(snapshot.exists()){
+                                        for(productSnapshot in snapshot.children){
+                                            Common.productSelected = productSnapshot.getValue(
+                                                ProductModel::class.java)
+                                            navController!!.navigate(R.id.nav_product_detail)
+                                        }
+                                    }
+                                    else{
+                                        Toast.makeText(this@UserDashboard,"Item doesn't exists",Toast.LENGTH_SHORT).show()
+                                    }
+                                    dialog!!.dismiss()
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    dialog!!.dismiss()
+                                    Toast.makeText(this@UserDashboard,""+error.message,Toast.LENGTH_SHORT).show()
+                                }
+
+                            })
+                        }
+                        else{
+                            dialog!!.dismiss()
+                            Toast.makeText(this@UserDashboard,"Item doesn't exists",Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        dialog!!.dismiss()
+                        Toast.makeText(this@UserDashboard,""+error.message,Toast.LENGTH_SHORT).show()
+                    }
+
+                })
         }
     }
 }
