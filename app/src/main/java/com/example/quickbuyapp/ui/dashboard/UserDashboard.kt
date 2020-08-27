@@ -2,6 +2,7 @@ package com.example.quickbuyapp.ui.dashboard
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -14,12 +15,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.quickbuyapp.EventBus.CategoryClick
+import com.example.quickbuyapp.EventBus.ProductItemClick
 import com.example.quickbuyapp.R
-import com.example.quickbuyapp.model.CategoryModel
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import kotlin.concurrent.thread
 
 class UserDashboard : AppCompatActivity() {
 
@@ -79,6 +79,13 @@ class UserDashboard : AppCompatActivity() {
         if(event.isSuccess){
             //Toast.makeText(this , "Click to"+event.category.name,Toast.LENGTH_SHORT).show()
             findNavController(R.id.nav_host_fragment).navigate(R.id.nav_product_list)
+        }
+    }
+
+    @Subscribe(sticky = true , threadMode = ThreadMode.MAIN)
+    fun OnFoodSelected(event : ProductItemClick){
+        if(event.isSuccess){
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_product_detail)
         }
     }
 }
