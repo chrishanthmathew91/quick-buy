@@ -8,7 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.asksira.loopingviewpager.LoopingPagerAdapter
 import com.bumptech.glide.Glide
+import com.example.quickbuyapp.EventBus.BestDealItemClick
 import com.example.quickbuyapp.model.BestDealModel
+import org.greenrobot.eventbus.EventBus
 
 
 class MyBestDealAdapter(context : Context,
@@ -26,5 +28,9 @@ class MyBestDealAdapter(context : Context,
         // Set Data
         Glide.with(context).load(itemList.get(listPosition).image).into(imageView)
         textView.text = itemList.get(listPosition).name
+
+        convertView.setOnClickListener{
+            EventBus.getDefault().postSticky(BestDealItemClick(itemList[listPosition]))
+        }
     }
 }

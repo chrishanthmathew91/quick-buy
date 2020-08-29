@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import com.example.quickbuyapp.Common.Common
+import com.example.quickbuyapp.EventBus.BestDealItemClick
 import com.example.quickbuyapp.EventBus.CategoryClick
 import com.example.quickbuyapp.EventBus.PopularProductClick
 import com.example.quickbuyapp.EventBus.ProductItemClick
@@ -131,6 +132,68 @@ class UserDashboard : AppCompatActivity() {
                                 .child("product")
                                 .orderByChild("item_id")
                                 .equalTo(event.popularCategoryModel.item_id)
+                                .limitToLast(1)
+                                .addListenerForSingleValueEvent(object : ValueEventListener{
+
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        if(snapshot.exists()){
+                                            for(productSnapshot in snapshot.children){
+                                                Common.productSelected = productSnapshot.getValue(
+                                                    ProductModel::class.java)
+                                                navController.navigate(R.id.nav_product_detail)
+                                            }
+                                        }
+                                        else{
+                                            Toast.makeText(this@UserDashboard,"Item doesn't exists",Toast.LENGTH_SHORT).show()
+                                        }
+                                        dialog!!.dismiss()
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        dialog!!.dismiss()
+                                        Toast.makeText(this@UserDashboard,""+error.message,Toast.LENGTH_SHORT).show()
+                                    }
+
+                                })
+                        }
+                        else{
+                            dialog!!.dismiss()
+                            Toast.makeText(this@UserDashboard,"Item doesn't exists",Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        dialog!!.dismiss()
+                        Toast.makeText(this@UserDashboard,""+error.message,Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+        }
+    }
+
+    @Subscribe(sticky = true , threadMode = ThreadMode.MAIN)
+    fun OnBestDealItemClick(event : BestDealItemClick){
+        if(event.bestDealModel != null){
+
+            dialog!!.show()
+
+            FirebaseDatabase.getInstance()
+                .getReference("Category")
+                .child(event.bestDealModel.category_id!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener{
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if(snapshot.exists()){
+                            Common.categorySelected = snapshot.getValue(CategoryModel::class.java)
+
+                            // Load Product
+                            FirebaseDatabase.getInstance()
+                                .getReference("Category")
+                                .child(event.bestDealModel.category_id!!)
+                                .child("product")
+                                .orderByChild("item_id")
+                                .equalTo(event.bestDealModel.item_id)
                                 .limitToLast(1)
                                 .addListenerForSingleValueEvent(object : ValueEventListener{
 
