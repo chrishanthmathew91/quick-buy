@@ -67,7 +67,8 @@ class UserDashboard : AppCompatActivity() {
                 R.id.nav_home,
                 R.id.nav_category,
                 R.id.nav_gallery,
-                R.id.nav_slideshow
+                R.id.nav_slideshow,
+                R.id.nav_about_us
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

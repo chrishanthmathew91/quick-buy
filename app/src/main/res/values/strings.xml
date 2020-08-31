@@ -21,6 +21,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_logout">Logout</string>
+    <string name="menu_about_us">About Us</string>
     <string name="menu_category">Category</string>
     <string name="product_search">Product Search</string>
     <string name="cart">Cart</string>
@@ -39,4 +40,5 @@
     <string name="description">Description</string>
     <string name="show_comment">Show Comment</string>
     <string name="action_search">Search</string>
+    <string name="about_us">Quick Buy is an eCommerce app for your basic needs. We specialize in Books, Furniture, Clothes, Shoes.</string>
 </resources>

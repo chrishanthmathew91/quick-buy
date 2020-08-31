@@ -39,5 +39,11 @@
         android:name="com.example.quickbuyapp.ui.productDetail.ProductDetailFragment"
         android:label="@string/product_detail"
         tools:layout="@layout/product_detail_fragment" />
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="com.example.quickbuyapp.ui.aboutus.FragmentAboutUs"
+        android:label="@string/menu_about_us"
+        tools:layout="@layout/fragment_about_us">
+    </fragment>
 
 </navigation>
