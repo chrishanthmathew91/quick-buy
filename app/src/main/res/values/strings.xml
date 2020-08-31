@@ -32,10 +32,11 @@
     <string name="best_deal">Best Deals</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="food_list">Food List</string>
+    <string name="food_list">Product List</string>
     <string name="name_of_item">Name of Item</string>
     <string name="product_detail">Product Detail</string>
-    <string name="food_name">Food Name</string>
+    <string name="food_name">Product Name</string>
     <string name="description">Description</string>
     <string name="show_comment">Show Comment</string>
+    <string name="action_search">Search</string>
 </resources>
