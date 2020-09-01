@@ -13,9 +13,9 @@ abstract class CartDatabase:RoomDatabase(){
     companion object{
         private var instance:CartDatabase?=null
 
-        fun getInstance(context:Context):CartDatabase{
+        fun getInstance(context: Context?):CartDatabase{
             if(instance==null)
-                instance= Room.databaseBuilder<CartDatabase>(context,CartDatabase::class.java!!,"quickbuy").build()
+                instance= Room.databaseBuilder<CartDatabase>(context!!,CartDatabase::class.java!!,"quickbuy").build()
             return instance!!
         }
     }

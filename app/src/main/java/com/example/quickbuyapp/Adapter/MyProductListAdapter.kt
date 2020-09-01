@@ -6,18 +6,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.quickbuyapp.Callback.IRecyclerItemClickListener
 import com.example.quickbuyapp.Common.Common
+import com.example.quickbuyapp.Database.CartDataSource
+import com.example.quickbuyapp.Database.CartDatabase
+import com.example.quickbuyapp.Database.CartItem
+import com.example.quickbuyapp.Database.LocalCartDataSource
+import com.example.quickbuyapp.EventBus.CountCartEvent
 import com.example.quickbuyapp.EventBus.ProductItemClick
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.model.ProductModel
+import com.google.firebase.auth.FirebaseAuth
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
 
 class MyProductListAdapter(internal var context: Context,
                            internal var productList: List<ProductModel>) :
     RecyclerView.Adapter<MyProductListAdapter.MyViewHolder>(){
+
+    private val compositeDisposable:CompositeDisposable
+    private val cartDataSource:CartDataSource
+
+    init {
+        compositeDisposable= CompositeDisposable()
+        cartDataSource= LocalCartDataSource(CartDatabase.getInstance(context!!).cartDAO())
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -43,8 +63,98 @@ class MyProductListAdapter(internal var context: Context,
                 Common.productSelected = productList.get(pos)
                 EventBus.getDefault().postSticky(ProductItemClick(true , productList.get(pos)))
             }
-
         })
+        holder.image_cart!!.setOnClickListener {
+            val cartItem= CartItem()
+            cartItem.uid=FirebaseAuth.getInstance().currentUser!!.uid
+            cartItem.userPhone=FirebaseAuth.getInstance().currentUser!!.email
+
+            cartItem.productId=productList.get(position).item_id!!
+            cartItem.productName=productList.get(position).name!!
+            cartItem.productImage=productList.get(position).image!!
+            cartItem.productPrice=productList.get(position).price!!.toDouble()
+            cartItem.productQuantity=1
+
+            cartDataSource.getItemWithAllOptionsInCart(FirebaseAuth.getInstance().currentUser!!.uid,
+            cartItem.productId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object :SingleObserver<CartItem>{
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onSuccess(cartItemFromDB: CartItem) {
+                        if(cartItemFromDB.equals(cartItem)){
+
+                            cartItemFromDB.productQuantity = cartItemFromDB.productQuantity+cartItem.productQuantity
+
+                            cartDataSource.updatecart(cartItemFromDB)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(object :SingleObserver<Int>{
+                                    override fun onSubscribe(d: Disposable) {
+
+                                    }
+
+                                    override fun onSuccess(t: Int) {
+                                        Toast.makeText(context,"Update Cart Success",Toast.LENGTH_LONG).show()
+                                        EventBus.getDefault().postSticky(CountCartEvent(true))
+                                    }
+
+                                    override fun onError(e: Throwable) {
+                                        Toast.makeText(context,"[UPDATE CART]"+e.message,Toast.LENGTH_LONG).show()
+                                    }
+
+                                })
+
+                        }
+                        else
+                        {
+                            //if item not available in database, just insert
+                            compositeDisposable.add(cartDataSource.insertorReplaceAll(cartItem)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({
+                                    Toast.makeText(context, "Add to cart Success", Toast.LENGTH_LONG).show()
+                                    //Here we will send a notify to UserDashboard to update Counterfab
+                                    EventBus.getDefault().postSticky(CountCartEvent(true))
+                                }, {
+                                        t: Throwable? -> Toast.makeText(context, "[INSERT CART]"+t!!.message,
+                                    Toast.LENGTH_LONG).show()
+                                }))
+                        }
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e.message!!.contains("empty"))
+                        {
+                            compositeDisposable.add(cartDataSource.insertorReplaceAll(cartItem)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({
+                                    Toast.makeText(context, "Add to cart Success", Toast.LENGTH_LONG).show()
+                                    //Here we will send a notify to UserDashboard to update Counterfab
+                                    EventBus.getDefault().postSticky(CountCartEvent(true))
+                                }, {
+                                        t: Throwable? -> Toast.makeText(context, "[INSERT CART]"+t!!.message,
+                                    Toast.LENGTH_LONG).show()
+                                }))
+                        }
+                        else{
+                            Toast.makeText(context,"[CART ERROR]"+e.message,Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                })
+        }
+    }
+
+    fun onStop()
+    {
+        if(compositeDisposable != null){
+            compositeDisposable.clear()
+        }
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),

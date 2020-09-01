@@ -17,19 +17,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import com.example.quickbuyapp.Common.Common
-import com.example.quickbuyapp.EventBus.BestDealItemClick
-import com.example.quickbuyapp.EventBus.CategoryClick
-import com.example.quickbuyapp.EventBus.PopularProductClick
-import com.example.quickbuyapp.EventBus.ProductItemClick
+import com.example.quickbuyapp.Database.CartDataSource
+import com.example.quickbuyapp.Database.CartDatabase
+import com.example.quickbuyapp.Database.LocalCartDataSource
+import com.example.quickbuyapp.EventBus.*
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.model.CategoryModel
-import com.example.quickbuyapp.model.PopularCategoryModel
 import com.example.quickbuyapp.model.ProductModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import dmax.dialog.SpotsDialog
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.app_bar_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -37,14 +42,22 @@ import org.greenrobot.eventbus.ThreadMode
 class UserDashboard : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var cartDataSource: CartDataSource
     private lateinit var navController : NavController
     private lateinit var navView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private var dialog:AlertDialog?=null
 
+    override fun onResume() {
+        super.onResume()
+        countCartItem()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
+
+        cartDataSource= LocalCartDataSource(CartDatabase.getInstance(this).cartDAO())
 
         dialog = SpotsDialog.Builder().setContext(this).setCancelable(false).build()
 
@@ -73,6 +86,7 @@ class UserDashboard : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        countCartItem()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -233,5 +247,33 @@ class UserDashboard : AppCompatActivity() {
 
                 })
         }
+    }
+    @Subscribe(sticky=true, threadMode = ThreadMode.MAIN)
+    fun onCountCartEvent(event:CountCartEvent)
+    {
+        if(event.isSuccess){
+            countCartItem()
+        }
+    }
+
+    private fun countCartItem() {
+
+        cartDataSource.countItemInCart(FirebaseAuth.getInstance().currentUser!!.uid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object: SingleObserver<Int>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onSuccess(t: Int) {
+                    fab.count= t
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(this@UserDashboard,"[COUNT CART]"+e.message,Toast.LENGTH_SHORT).show()
+                }
+
+            })
     }
 }

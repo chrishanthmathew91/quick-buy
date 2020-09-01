@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -106,7 +107,7 @@ dependencies {
 
     //Room persistence
     implementation 'androidx.room:room-rxjava2:2.2.0-rc01'
-    annotationProcessor 'androidx.room:room-compiler:2.2.0-rc01'
+    kapt 'androidx.room:room-compiler:2.2.0-rc01'
 
     //Floating Button cart
     implementation 'com.github.andremion:counterfab:1.2.2-alpha1'
