@@ -15,7 +15,7 @@ interface CartDAO {
     fun countItemInCart(uid: String):Single<Int>
 
     @Query("SELECT SUM(productQuantity*productPrice) FROM Cart WHERE uid=:uid")
-    fun sumPrice(uid: String):Single<Long>
+    fun sumPrice(uid: String):Single<Double>
 
     @Query("SELECT * FROM Cart WHERE productId=:productId AND uid=:uid")
     fun getItemInCart(productId:String,uid: String): Single<CartItem>

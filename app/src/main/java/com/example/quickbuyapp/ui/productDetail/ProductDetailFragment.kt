@@ -42,7 +42,7 @@ class ProductDetailFragment : Fragment() {
     private var product_name:TextView?=null
     private var product_description:TextView?=null
     private var product_price:TextView?=null
-    private var number_button:ElegantNumberButton?=null
+    //private var number_button:ElegantNumberButton?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +74,7 @@ class ProductDetailFragment : Fragment() {
         product_name = root!!.findViewById(R.id.product_name) as TextView
         product_description = root!!.findViewById(R.id.product_description) as TextView
         product_price = root!!.findViewById(R.id.product_price) as TextView
-        number_button = root!!.findViewById(R.id.number_button) as ElegantNumberButton
+       // number_button = root!!.findViewById(R.id.number_button) as ElegantNumberButton
 
         btnCart!!.setOnClickListener {
             val cartItem= CartItem()
@@ -161,5 +161,4 @@ class ProductDetailFragment : Fragment() {
                 })
         }
     }
-
 }

@@ -14,7 +14,7 @@ class LocalCartDataSource(private val cartDAO: CartDAO):CartDataSource {
         return cartDAO.countItemInCart(uid)
     }
 
-    override fun sumPrice(uid: String): Single<Long> {
+    override fun sumPrice(uid: String): Single<Double> {
         return cartDAO.sumPrice(uid)
 
     }

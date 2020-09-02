@@ -63,22 +63,20 @@ class UserDashboard : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener { view ->
+            navController.navigate(R.id.nav_cart)
+        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
                 R.id.nav_category,
+                R.id.nav_cart,
                 R.id.nav_gallery,
                 R.id.nav_slideshow,
                 R.id.nav_about_us
@@ -248,6 +246,19 @@ class UserDashboard : AppCompatActivity() {
                 })
         }
     }
+
+
+    @Subscribe(sticky=true, threadMode = ThreadMode.MAIN)
+    fun onHideFABEvent(event:HideFABCart)
+    {
+        if(event.isHide){
+            fab.hide()
+        }
+        else{
+            fab.show()
+        }
+    }
+
     @Subscribe(sticky=true, threadMode = ThreadMode.MAIN)
     fun onCountCartEvent(event:CountCartEvent)
     {

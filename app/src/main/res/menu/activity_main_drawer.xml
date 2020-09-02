@@ -8,10 +8,15 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
+
         <item
             android:id="@+id/nav_category"
             android:icon="@drawable/ic_baseline_list_24"
             android:title="@string/menu_category" />
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="@string/cart"/>
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_baseline_settings_24"
@@ -20,9 +25,14 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/logout"
             android:title="@string/menu_logout" />
-        <item
-            android:id="@+id/nav_about_us"
-            android:icon="@drawable/ic_baseline_info_24"
-            android:title="@string/menu_about_us" />
+        <item android:title="More">
+            <menu>
+                <item
+                    android:id="@+id/nav_about_us"
+                    android:icon="@drawable/ic_baseline_info_24"
+                    android:title="@string/menu_about_us" />
+            </menu>
+
+        </item>
     </group>
 </menu>

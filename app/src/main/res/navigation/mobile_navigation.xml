@@ -33,6 +33,12 @@
         android:name="com.example.quickbuyapp.ui.productlist.ProductListFragment"
         android:label="@string/food_list"
         tools:layout="@layout/product_list_fragment" />
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.quickbuyapp.ui.cart.CartFragment"
+        android:label="@string/cart"
+        tools:layout="@layout/fragment_cart"
+        />
 
     <fragment
         android:id="@+id/nav_product_detail"
