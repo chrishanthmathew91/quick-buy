@@ -55,7 +55,6 @@
                 android:text="PLACE ORDER"
                 android:textColor="#FFFFFF"
                 android:theme="@style/MatButton" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

@@ -46,6 +46,7 @@ class MyCartAdapter(internal var context: Context,
         holder.number_button.number=cartItems[position].productQuantity.toString()
         //Event
         holder.number_button.setOnValueChangeListener { view, oldValue, newValue ->
+            cartItems[position].productQuantity=newValue
             EventBus.getDefault().postSticky(UpdateItemInCart(cartItems[position]))
         }
     }
@@ -62,7 +63,7 @@ class MyCartAdapter(internal var context: Context,
             img_cart=itemView.findViewById(R.id.image_cart) as ImageView
             txt_product_name=itemView.findViewById(R.id.txt_product_name)
             txt_product_price=itemView.findViewById(R.id.txt_product_price)
-            number_button=itemView.findViewById(R.id.number_button)
+            number_button=itemView.findViewById(R.id.number_button) as ElegantNumberButton
         }
     }
 }
