@@ -282,7 +282,10 @@ class UserDashboard : AppCompatActivity() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Toast.makeText(this@UserDashboard,"[COUNT CART]"+e.message,Toast.LENGTH_SHORT).show()
+                    if(!e.message!!.contains("Query returned empty"))
+                       Toast.makeText(this@UserDashboard,"[COUNT CART]"+e.message,Toast.LENGTH_SHORT).show()
+                    else
+                        fab.count=0
                 }
 
             })

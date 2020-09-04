@@ -54,6 +54,11 @@ class MyCartAdapter(internal var context: Context,
     override fun getItemCount(): Int {
         return cartItems.size
     }
+
+    fun getItemAtPosition(pos: Int): CartItem {
+        return cartItems[pos]
+    }
+
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var img_cart:ImageView
         var txt_product_name:TextView

@@ -177,7 +177,7 @@ class MyProductListAdapter(internal var context: Context,
             text_item_price = itemView.findViewById(R.id.text_item_price) as TextView
             item_image = itemView.findViewById(R.id.item_image) as ImageView
             image_cart = itemView.findViewById(R.id.img_quick_cart) as ImageView
-            image_fav = itemView.findViewById(R.id.img_fav) as ImageView
+            // image_fav = itemView.findViewById(R.id.img_fav) as ImageView
             itemView.setOnClickListener(this)
         }
 
