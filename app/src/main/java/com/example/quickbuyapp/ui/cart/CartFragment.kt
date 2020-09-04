@@ -7,9 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
 import com.example.quickbuyapp.Adapter.MyCartAdapter
+import com.example.quickbuyapp.Common.Common
 import com.example.quickbuyapp.Database.CartDataSource
 import com.example.quickbuyapp.Database.CartDatabase
 import com.example.quickbuyapp.Database.LocalCartDataSource
@@ -30,6 +30,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cart.*
+import kotlinx.android.synthetic.main.fragment_logout.*
+import kotlinx.android.synthetic.main.layout_place_order.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -45,6 +47,7 @@ class CartFragment : Fragment() {
     private var cartDataSource:CartDataSource?=null
     private var compositeDisposable:CompositeDisposable= CompositeDisposable()
     private var recyclerViewState:Parcelable?=null
+    private lateinit var button_place_order:Button
 
     var txt_empty_cart:TextView?=null
     var txt_total_price:TextView?=null
@@ -96,6 +99,40 @@ class CartFragment : Fragment() {
         txt_empty_cart=root.findViewById(R.id.txt_empty_cart)
         txt_total_price=root.findViewById(R.id.txt_total_price)
         group_place_holder=root.findViewById(R.id.group_place_holder)
+
+        button_place_order = root.findViewById(R.id.button_place_order) as Button
+
+        // Event
+        button_place_order.setOnClickListener{
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("One more step!")
+
+            val view = LayoutInflater.from(context).inflate(R.layout.layout_place_order,null)
+
+            val edit_address = view.findViewById<EditText>(R.id.edit_address) as EditText
+
+            //val rdi_home = view.findViewById<View>(R.id.rdi_home_address) as RadioButton
+            //val rdi_other_address = view.findViewById<View>(R.id.rdi_other_address) as RadioButton
+            //val rdi_ship_to_this_address = view.findViewById<View>(R.id.rdi_ship_this_address)
+            //val rdi_other_app = view.findViewById<View>(R.id.rdi_otherApp) as RadioButton
+
+            val rdi_cod = view.findViewById<View>(R.id.rdi_cod) as RadioButton
+
+            // Data
+            //edit_address.text = Common.currentUser.address
+            /*//Event
+            rdi_home.setOnCheckedChangeListener { compoundButton, b ->
+            }*/
+
+            // Event
+            builder.setView(view)
+            builder.setNegativeButton("No", {dialogInterface, _ -> dialogInterface.dismiss() })
+                .setPositiveButton("Yes" , {dialogInterface, _->  Toast.makeText(requireContext(),"Order Booked" , Toast.LENGTH_SHORT).show()})
+
+            val dialog = builder.create()
+            dialog.show()
+
+        }
 
     }
 
