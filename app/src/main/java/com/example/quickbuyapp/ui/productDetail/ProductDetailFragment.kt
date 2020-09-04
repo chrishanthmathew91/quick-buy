@@ -63,6 +63,17 @@ class ProductDetailFragment : Fragment() {
         product_name!!.text = StringBuilder(it!!.name)
         product_description!!.text = StringBuilder(it!!.description)
         product_price!!.text = StringBuilder(it!!.price)
+        //calculateTotalPrice()
+    }
+
+    private fun calculateTotalPrice(){
+        var totalPrice = Common.productSelected!!.price!!.toDouble()
+        var displayPrice = 0.0
+
+        // to get total price
+        displayPrice = totalPrice*(number_button!!.number.toInt())
+        displayPrice = Math.round(displayPrice*100.0)/100.0
+        product_price!!.text = StringBuilder("").append(Common.productPrice(displayPrice)).toString()
     }
 
     private fun initView(root: View?) {
@@ -70,13 +81,14 @@ class ProductDetailFragment : Fragment() {
         cartDataSource= LocalCartDataSource(CartDatabase.getInstance(context).cartDAO())
         btnCart = root!!.findViewById(R.id.btnCart) as CounterFab
         img_product = root!!.findViewById(R.id.img_product) as ImageView
-        btnRating = root!!.findViewById(R.id.btn_rating) as FloatingActionButton
+        //btnRating = root!!.findViewById(R.id.btn_rating) as FloatingActionButton
         product_name = root!!.findViewById(R.id.product_name) as TextView
         product_description = root!!.findViewById(R.id.product_description) as TextView
         product_price = root!!.findViewById(R.id.product_price) as TextView
         number_button = root!!.findViewById(R.id.number_button_detail) as ElegantNumberButton
 
         btnCart!!.setOnClickListener {
+            calculateTotalPrice()
             val cartItem= CartItem()
             cartItem.uid= FirebaseAuth.getInstance().currentUser!!.uid
             cartItem.userPhone= FirebaseAuth.getInstance().currentUser!!.email

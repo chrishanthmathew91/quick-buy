@@ -155,7 +155,7 @@ class CartFragment : Fragment() {
                 }
 
                 override fun onSuccess(t: Double) {
-                    txt_total_price!!.text= StringBuilder("Total")
+                    txt_total_price!!.text= StringBuilder("Total: ₹")
                 }
 
                 override fun onError(e: Throwable) {
