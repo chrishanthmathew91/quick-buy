@@ -38,7 +38,7 @@ class ProductDetailFragment : Fragment() {
 
     private var img_product:ImageView ?= null
     private var btnCart:CounterFab?=null
-    private var btnRating:FloatingActionButton?=null
+    //private var btnRating:FloatingActionButton?=null
     private var product_name:TextView?=null
     private var product_description:TextView?=null
     private var product_price:TextView?=null
@@ -67,8 +67,8 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun calculateTotalPrice(){
-        var totalPrice = Common.productSelected!!.price!!.toDouble()
-        var displayPrice = 0.0
+        val totalPrice = Common.productSelected!!.price!!.toDouble()
+        var displayPrice: Double
 
         // to get total price
         displayPrice = totalPrice*(number_button!!.number.toInt())
@@ -80,12 +80,12 @@ class ProductDetailFragment : Fragment() {
 
         cartDataSource= LocalCartDataSource(CartDatabase.getInstance(context).cartDAO())
         btnCart = root!!.findViewById(R.id.btnCart) as CounterFab
-        img_product = root!!.findViewById(R.id.img_product) as ImageView
+        img_product = root.findViewById(R.id.img_product) as ImageView
         //btnRating = root!!.findViewById(R.id.btn_rating) as FloatingActionButton
-        product_name = root!!.findViewById(R.id.product_name) as TextView
-        product_description = root!!.findViewById(R.id.product_description) as TextView
-        product_price = root!!.findViewById(R.id.product_price) as TextView
-        number_button = root!!.findViewById(R.id.number_button_detail) as ElegantNumberButton
+        product_name = root.findViewById(R.id.product_name) as TextView
+        product_description = root.findViewById(R.id.product_description) as TextView
+        product_price = root.findViewById(R.id.product_price) as TextView
+        number_button = root.findViewById(R.id.number_button_detail) as ElegantNumberButton
 
         btnCart!!.setOnClickListener {
             calculateTotalPrice()
