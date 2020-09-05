@@ -5,10 +5,9 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.*
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,13 +25,18 @@ import com.example.quickbuyapp.EventBus.CountCartEvent
 import com.example.quickbuyapp.EventBus.HideFABCart
 import com.example.quickbuyapp.EventBus.UpdateItemInCart
 import com.example.quickbuyapp.R
+import com.example.quickbuyapp.R.id
+import com.example.quickbuyapp.model.Order
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import io.reactivex.Scheduler
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cart.*
+import kotlinx.android.synthetic.main.layout_place_order.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -43,6 +47,7 @@ class CartFragment : Fragment() {
     companion object {
         fun newInstance() = CartFragment()
     }
+
 
     private lateinit var cartviewModel: CartViewModel
     private var cartDataSource:CartDataSource?=null
@@ -68,7 +73,7 @@ class CartFragment : Fragment() {
 
         cartviewModel = ViewModelProviders.of(this).get(CartViewModel::class.java)
         cartviewModel.initCartDataSource(requireContext())
-         val root= inflater.inflate(R.layout.fragment_cart, container, false)
+        val root= inflater.inflate(R.layout.fragment_cart, container, false)
         initViews(root)
         cartviewModel.getMutableLiveDataCartItem().observe(viewLifecycleOwner, Observer {
             if(it == null || it.isEmpty() ){
@@ -105,10 +110,10 @@ class CartFragment : Fragment() {
                 buffer: MutableList<MyButton>
             ) {
                 buffer.add(MyButton(context!!,
-                "Delete",
-                30,
-                0,
-                Color.parseColor("#FF3C30"),
+                    "Delete",
+                    30,
+                    0,
+                    Color.parseColor("#FF3C30"),
                     object :IMyButtonCallback{
                         override fun onClick(pos: Int) {
                             val deleteItem= adapter!!.getItemAtPosition(pos)
@@ -141,6 +146,102 @@ class CartFragment : Fragment() {
         txt_total_price=root.findViewById(R.id.txt_total_price)
         group_place_holder=root.findViewById(R.id.group_place_holder)
 
+        val button_place_order = root.findViewById(R.id.button_place_order) as Button
+
+        // Event
+        button_place_order.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("One more step!")
+
+            val view = LayoutInflater.from(context).inflate(R.layout.layout_place_order, null)
+
+            val edit_address = view.findViewById<EditText>(R.id.edit_address) as EditText
+
+            val rdi_cod = view.findViewById<View>(R.id.rdi_cod) as RadioButton
+
+            // Event
+            builder.setView(view)
+            builder.setNegativeButton("No", { dialogInterface, _ -> dialogInterface.dismiss() })
+                .setPositiveButton("Yes") { dialogInterface, _ ->
+                    // Toast.makeText(requireContext(), "Order Booked", Toast.LENGTH_SHORT).show()
+                    if (rdi_cod.isChecked)
+                        paymentCOD(edit_address.text.toString())
+                }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
+    }
+
+    private fun paymentCOD(address: String) {
+        compositeDisposable.add(cartDataSource!!.getAllCart(FirebaseAuth.getInstance().currentUser!!.uid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({ cartItemList ->
+
+                // When we have all cartItems , we will get total price
+
+                cartDataSource!!.sumPrice(FirebaseAuth.getInstance().currentUser!!.uid)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(object: SingleObserver<Double>{
+
+                        override fun onSubscribe(d: Disposable) {
+                        }
+
+                        override fun onSuccess(totalPrice : Double) {
+                            val finalPrice = totalPrice
+                            val order = Order()
+                            order.userId = FirebaseAuth.getInstance().currentUser!!.uid
+                            order.shippingAddress = address
+                            order.cartItemList = cartItemList
+                            order.totalPayment = totalPrice
+                            order.finalPayment = finalPrice
+                            order.discount = 0
+                            order.isCod = true
+                            order.transactionId = "Cash On Delivery"
+
+                            // Submit to firebase
+                            writeOrderToFirebase(order)
+                        }
+
+                        override fun onError(e: Throwable) {
+                            Toast.makeText(requireContext() , ""+e.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+            } ,
+            {throwable ->  Toast.makeText(requireContext() , ""+throwable.message, Toast.LENGTH_SHORT).show()}))
+    }
+
+    private fun writeOrderToFirebase(order: Order) {
+        FirebaseDatabase.getInstance()
+            .getReference(Common.ORDER_REF)
+            .child(Common.createOrderNumber())
+            .setValue(order)
+            .addOnFailureListener { e -> Toast.makeText(requireContext() , ""+e.message , Toast.LENGTH_SHORT).show() }
+            .addOnCompleteListener { task ->
+                // clean cart
+                if(task.isSuccessful){
+                    cartDataSource!!.cleanCart(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(object: SingleObserver<Int>{
+                            override fun onSubscribe(d: Disposable) {
+
+                            }
+
+                            override fun onSuccess(t: Int) {
+                                Toast.makeText(requireContext() , "Order placed successfully" , Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onError(e: Throwable) {
+                                Toast.makeText(requireContext() , ""+e.message , Toast.LENGTH_SHORT).show()
+                            }
+
+                        })
+                }
+            }
     }
 
     private fun sumCart() {
@@ -266,5 +367,5 @@ class CartFragment : Fragment() {
             return true
         }
         return super.onOptionsItemSelected(item)
-        }
+    }
 }

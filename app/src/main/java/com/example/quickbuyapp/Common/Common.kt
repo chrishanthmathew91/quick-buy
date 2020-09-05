@@ -5,6 +5,7 @@ import com.example.quickbuyapp.model.ProductModel
 import java.lang.StringBuilder
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import kotlin.random.Random as Random
 
 object Common {
     fun productPrice(price: Double): String {
@@ -20,6 +21,14 @@ object Common {
 
     }
 
+    fun createOrderNumber(): String {
+        return StringBuilder()
+            .append(System.currentTimeMillis())
+            .append(Math.abs(java.util.Random().nextInt()))
+            .toString()
+    }
+
+    val ORDER_REF: String = "Order"
     var categorySelected:CategoryModel ?= null
     var productSelected:ProductModel ?= null
     val CATEGORY_REF: String="Category"
