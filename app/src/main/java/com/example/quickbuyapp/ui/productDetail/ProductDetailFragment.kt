@@ -42,7 +42,7 @@ class ProductDetailFragment : Fragment() {
     private var product_name:TextView?=null
     private var product_description:TextView?=null
     private var product_price:TextView?=null
-    private var number_button:ElegantNumberButton?=null
+    //private var number_button:ElegantNumberButton?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +66,7 @@ class ProductDetailFragment : Fragment() {
         //calculateTotalPrice()
     }
 
-    private fun calculateTotalPrice(){
+    /*private fun calculateTotalPrice(){
         val totalPrice = Common.productSelected!!.price!!.toDouble()
         var displayPrice: Double
 
@@ -74,7 +74,7 @@ class ProductDetailFragment : Fragment() {
         displayPrice = totalPrice*(number_button!!.number.toInt())
         displayPrice = Math.round(displayPrice*100.0)/100.0
         product_price!!.text = StringBuilder("").append(Common.productPrice(displayPrice)).toString()
-    }
+    }*/
 
     private fun initView(root: View?) {
 
@@ -85,10 +85,10 @@ class ProductDetailFragment : Fragment() {
         product_name = root.findViewById(R.id.product_name) as TextView
         product_description = root.findViewById(R.id.product_description) as TextView
         product_price = root.findViewById(R.id.product_price) as TextView
-        number_button = root.findViewById(R.id.number_button_detail) as ElegantNumberButton
+        //number_button = root.findViewById(R.id.number_button_detail) as ElegantNumberButton
 
         btnCart!!.setOnClickListener {
-            calculateTotalPrice()
+            //calculateTotalPrice()
             val cartItem= CartItem()
             cartItem.uid= FirebaseAuth.getInstance().currentUser!!.uid
             cartItem.userPhone= FirebaseAuth.getInstance().currentUser!!.email

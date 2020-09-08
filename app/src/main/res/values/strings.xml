@@ -42,4 +42,5 @@
     <string name="show_comment">Show Comment</string>
     <string name="action_search">Search</string>
     <string name="about_us">Quick Buy is an eCommerce app for your basic needs. We specialize in Books, Furniture, Clothes, Shoes.</string>
+    <string name="menu_view_order">View Orders</string>
 </resources>

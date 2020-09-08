@@ -79,18 +79,13 @@ class UserDashboard : AppCompatActivity() {
                 R.id.nav_cart,
                 R.id.nav_gallery,
                 R.id.nav_slideshow,
+                R.id.nav_view_order,
                 R.id.nav_about_us
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         countCartItem()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //menuInflater.inflate(R.menu.activity_main_drawer, menu)
-        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
