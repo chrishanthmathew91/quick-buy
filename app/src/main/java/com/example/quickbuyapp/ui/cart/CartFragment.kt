@@ -212,7 +212,7 @@ class CartFragment : Fragment(), ILoadTimeFromFirebaseCallback {
                             order.discount = 0
                             order.isCod = true
                             order.transactionId = "Cash On Delivery"
-
+                            EventBus.getDefault().postSticky(CountCartEvent(true))
                             // Submit to firebase
                             syncLocalTimeWithServerTime(order)
                         }
