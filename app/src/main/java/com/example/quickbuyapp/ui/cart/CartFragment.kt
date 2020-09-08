@@ -264,6 +264,7 @@ class CartFragment : Fragment(), ILoadTimeFromFirebaseCallback {
 
                             override fun onSuccess(t: Int) {
                                 Toast.makeText(requireContext() , "Order placed successfully" , Toast.LENGTH_SHORT).show()
+                                EventBus.getDefault().postSticky(CountCartEvent(true))
                             }
 
                             override fun onError(e: Throwable) {
