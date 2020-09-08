@@ -6,9 +6,11 @@ import android.view.View
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.example.quickbuyapp.Common.Common
 import com.example.quickbuyapp.R
 import com.example.quickbuyapp.databinding.ActivityLoginPageBinding
 import com.example.quickbuyapp.utils.startHomeActivity
+import com.google.firebase.iid.FirebaseInstanceId
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -85,7 +87,18 @@ class LoginPage : AppCompatActivity(), AuthListener, KodeinAware {
     override fun onSuccess(message: String) {
         binding.progressBarLogin.visibility = View.GONE
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        startHomeActivity()
+        FirebaseInstanceId.getInstance()
+            .instanceId
+            .addOnFailureListener { e-> Toast.makeText(this,""+e.message,Toast.LENGTH_LONG).show()
+                startHomeActivity()}
+            .addOnCompleteListener {  task ->
+                if (task.isSuccessful){
+                    Common.updateToken(this, task.result!!.token)
+                    startHomeActivity()
+                }
+
+            }
+
     }
 
     override fun onFailure(message: String) {
@@ -96,12 +109,16 @@ class LoginPage : AppCompatActivity(), AuthListener, KodeinAware {
     override fun onStart() {
         super.onStart()
         viewModel.user?.let {
-            startHomeActivity()
+            FirebaseInstanceId.getInstance()
+                .instanceId
+                .addOnFailureListener { e-> Toast.makeText(this,""+e.message,Toast.LENGTH_LONG).show()
+                    startHomeActivity()}
+                .addOnCompleteListener {  task ->
+                    if (task.isSuccessful){
+                        Common.updateToken(this, task.result!!.token)
+                        startHomeActivity()
+                    }
+                }
         }
     }
-
-
-
-
-
 }
