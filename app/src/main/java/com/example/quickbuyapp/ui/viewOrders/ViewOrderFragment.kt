@@ -26,9 +26,9 @@ import kotlin.collections.ArrayList
 
 class ViewOrderFragment : Fragment() , ILoadOrderCallbackListener {
 
-    companion object {
+    /*companion object {
         fun newInstance() = ViewOrderFragment()
-    }
+    }*/
 
     private lateinit var viewOrderModel: ViewOrderViewModel
     private lateinit var dialog:AlertDialog
@@ -61,10 +61,13 @@ class ViewOrderFragment : Fragment() , ILoadOrderCallbackListener {
             .equalTo(FirebaseAuth.getInstance().currentUser!!.uid)
             .limitToLast(100)
             .addListenerForSingleValueEvent(object:ValueEventListener{
+
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(orderSnapshot in snapshot.children){
+
                         val order = orderSnapshot.getValue(Order::class.java)
                         order!!.orderNumber = orderSnapshot.key
+                        orderList.add(order)
                     }
                     listener.onLoadOrderSuccess(orderList)
                 }
@@ -99,5 +102,4 @@ class ViewOrderFragment : Fragment() , ILoadOrderCallbackListener {
         dialog.dismiss()
         Toast.makeText(requireContext() , message , Toast.LENGTH_SHORT).show()
     }
-
 }

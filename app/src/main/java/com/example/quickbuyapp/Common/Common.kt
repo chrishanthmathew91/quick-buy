@@ -101,12 +101,12 @@ object Common {
     }
 
     fun convertStatusToText(orderStatus: Int): String {
-        when(orderStatus){
-            0 -> return "Placed"
-            1 -> return "Shipping"
-            2 -> return "Shipped"
-            -1 -> return "Cancelled"
-            else -> return "Unkown"
+        return when(orderStatus){
+            0 -> "Placed"
+            1 -> "Shipping"
+            2 -> "Shipped"
+            -1 -> "Cancelled"
+            else -> "Unkown"
         }
     }
 

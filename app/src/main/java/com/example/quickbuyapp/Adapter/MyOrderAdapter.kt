@@ -16,7 +16,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MyOrderAdapter(private val context:Context ,
-                    private val orderList:List<Order>): RecyclerView.Adapter<MyOrderAdapter.MyViewHolder>() {
+                    private val orderList:List<Order>):
+    RecyclerView.Adapter<MyOrderAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
         internal var img_order : ImageView? = null
@@ -35,13 +36,8 @@ class MyOrderAdapter(private val context:Context ,
     }
 
 
-    internal var calendar : Calendar
-    internal var simpleDateFormat : SimpleDateFormat
-
-    init {
-        calendar = Calendar.getInstance()
-        simpleDateFormat = SimpleDateFormat("dd-mm-yyyy HH:MM:SS")
-    }
+    internal var calendar : Calendar = Calendar.getInstance()
+    internal var simpleDateFormat : SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(context!!)
