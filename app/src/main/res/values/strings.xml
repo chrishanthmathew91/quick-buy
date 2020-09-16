@@ -33,6 +33,7 @@
     <string name="best_deal">Best Deals</string>
     <string name="action_clear_cart">Clear Cart</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="scanner">Scanner</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="food_list">Product List</string>
     <string name="name_of_item">Name of Item</string>
