@@ -22,11 +22,11 @@ import androidx.core.content.ContextCompat
 
 
 
-class FragmentBarcodeScanner : Fragment() {
+class FragmentBarcode : Fragment() {
 
     private  val CAMERA_REQUEST_CODE=101
     companion object {
-        fun newInstance() = FragmentBarcodeScanner()
+        fun newInstance() = FragmentBarcode()
     }
 
     private lateinit var viewModel: FragmentBarcodeScannerViewModel
