@@ -10,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
@@ -19,6 +17,9 @@ import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.quickbuyapp.R
 import kotlinx.android.synthetic.main.barcode_fragment.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+
 
 
 class FragmentBarcodeScanner : Fragment() {
