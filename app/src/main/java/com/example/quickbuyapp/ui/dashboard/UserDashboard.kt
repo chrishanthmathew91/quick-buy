@@ -77,6 +77,7 @@ class UserDashboard : AppCompatActivity() {
                 R.id.nav_home,
                 R.id.nav_category,
                 R.id.nav_cart,
+                R.id.nav_scanner,
                 R.id.nav_gallery,
                 R.id.nav_slideshow,
                 R.id.nav_view_order,

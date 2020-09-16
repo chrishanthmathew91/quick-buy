@@ -14,6 +14,10 @@
             android:icon="@drawable/ic_baseline_list_24"
             android:title="@string/menu_category" />
         <item
+            android:id="@+id/nav_scanner"
+            android:title="@string/scanner"
+            android:icon="@drawable/ic_baseline_camera"/>
+        <item
             android:id="@+id/nav_cart"
             android:icon="@drawable/ic_baseline_shopping_cart_24"
             android:title="@string/cart"/>
