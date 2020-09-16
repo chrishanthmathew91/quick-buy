@@ -112,8 +112,8 @@ dependencies {
 
     //Floating Button cart
     implementation 'com.github.andremion:counterfab:1.2.2-alpha1'
-    implementation 'com.budiyev.android:code-scanner:2.1.0'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.github.andremion:counterfab:1.2.0'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 
 }
