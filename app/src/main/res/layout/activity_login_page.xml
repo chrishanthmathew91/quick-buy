@@ -23,7 +23,6 @@
             android:textColor="#0E0E0E"
             android:textSize="30sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/textViewEmailLogin"
             android:layout_width="wrap_content"

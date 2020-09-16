@@ -18,7 +18,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.quickbuyapp.R
-import kotlinx.android.synthetic.main.barcode_scanner_fragment.*
+import kotlinx.android.synthetic.main.barcode_fragment.*
 
 
 class FragmentBarcodeScanner : Fragment() {
@@ -34,7 +34,7 @@ class FragmentBarcodeScanner : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.barcode_scanner_fragment, container, false)
+        return inflater.inflate(R.layout.barcode_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,7 +60,8 @@ class FragmentBarcodeScanner : Fragment() {
             }
             errorCallback = ErrorCallback {
                 requireActivity().runOnUiThread {
-                    Log.e("Main", "Camera Initialisation Error: ${it.message}")                }
+                    Log.e("Main", "Camera Initialisation Error: ${it.message}")
+                }
             }
         }
         scanner_view.setOnClickListener {

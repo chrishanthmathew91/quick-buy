@@ -50,7 +50,7 @@
         android:id="@+id/nav_scanner"
         android:name="com.example.quickbuyapp.ui.barcode.FragmentBarcodeScanner"
         android:label="@string/scanner"
-        tools:layout="@layout/barcode_scanner_fragment"/>
+        tools:layout="@layout/barcode_fragment"/>
     <fragment
         android:id="@+id/nav_product_detail"
         android:name="com.example.quickbuyapp.ui.productDetail.ProductDetailFragment"
