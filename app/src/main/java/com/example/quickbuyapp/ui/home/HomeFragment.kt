@@ -1,5 +1,6 @@
 package com.example.quickbuyapp.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,12 @@ import com.asksira.loopingviewpager.LoopingViewPager
 import com.example.quickbuyapp.MyBestDealAdapter
 import com.example.quickbuyapp.MyPopularCategoriesAdapter
 import com.example.quickbuyapp.R
+import dmax.dialog.SpotsDialog
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-
+    private lateinit var dialog: AlertDialog
     private var recyclerView:RecyclerView? = null
     private var viewPager: LoopingViewPager? = null
 
@@ -40,6 +42,7 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.bestDealList.observe(viewLifecycleOwner , Observer {
+            dialog.dismiss()
             val adapter = MyBestDealAdapter(requireContext() , it , false)
             viewPager!!.adapter = adapter
         })
@@ -48,6 +51,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView(root:View){
+        dialog = SpotsDialog.Builder().setContext(context)
+            .setCancelable(false).build()
+        dialog.show()
         viewPager = root.findViewById(R.id.viewpager) as LoopingViewPager
         recyclerView = root.findViewById(R.id.recycler_popular) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
